@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>KPI Card Pro</title>
+<title>KPI Card Pro Mini</title>
 <script src="https://cdn.jsdelivr.net/gh/tableau/extensions-api/lib/tableau.extensions.1.latest.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -13,8 +13,8 @@
   --mono:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace;
   --ease2:cubic-bezier(.16,1,.3,1);
   --t1:#0f172a;--t4:#94a3b8;--t5:#e2e8f0;
-  --g:#16a34a;--g-bg:rgba(22,163,74,.1);--g-bdr:rgba(22,163,74,.22);
-  --r:#dc2626;--r-bg:rgba(220,38,38,.1);--r-bdr:rgba(220,38,38,.22);
+  --g:#16a34a;--g-bg:rgba(22,163,74,.08);--g-bdr:rgba(22,163,74,.2);
+  --r:#dc2626;--r-bg:rgba(220,38,38,.08);--r-bdr:rgba(220,38,38,.2);
   --b:#2563eb;
 }
 
@@ -28,158 +28,154 @@ html,body{
 }
 
 #app{
-  width:calc(100% - 12px);
-  height:calc(100% - 12px);
-  max-width:260px;
+  width:calc(100% - 8px);
+  height:calc(100% - 8px);
+  max-width:180px; /* Reduced from 260px for a sleeker look */
   display:flex;align-items:center;justify-content:center;
 }
 
 /* ════════════════════════════════
-   CARD
+   CARD — Ultra Compact & Transparent
 ════════════════════════════════ */
 #card{
   width:100%;
-  background:#fff;
-  border-radius:18px;
-  border:1px solid rgba(15,23,42,.06);
+  background:transparent;
+  border:1px solid transparent;
   overflow:hidden;
   position:relative;
-  box-shadow:
-    0 1px 3px rgba(15,23,42,.04),
-    0 8px 24px rgba(15,23,42,.07);
   display:flex;flex-direction:column;
-  animation:cardIn .5s var(--ease2) both;
+  animation:cardIn .4s var(--ease2) both;
   cursor:pointer;
 }
 @keyframes cardIn{
-  from{opacity:0;transform:translateY(12px) scale(.97)}
+  from{opacity:0;transform:translateY(6px) scale(.98)}
   to{opacity:1;transform:none}
 }
 
-.body{padding:16px 16px 0;position:relative;z-index:1;}
+/* Reduced internal padding for high density */
+.body{padding:6px 8px 0;position:relative;z-index:1;}
 
 #card-hdr{
-  font-size:9px;font-weight:700;
-  letter-spacing:.13em;text-transform:uppercase;
-  color:var(--t4);margin-bottom:12px;
+  font-size: clamp(8px, 2.5vw, 10px); /* Fully responsive typography scaling */
+  font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--t4);
+  margin-bottom:4px;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 
 #hero-val{
   font-family:var(--mono);
-  font-size:32px;font-weight:700;
+  font-size: clamp(20px, 6.5vw, 26px); /* Fluid typography */
+  font-weight:700;
   color:var(--t1);
-  letter-spacing:-.04em;line-height:1;
+  letter-spacing:-.04em;line-height:1.05;
   font-variant-numeric:tabular-nums;
   white-space:nowrap;
-  margin-bottom:8px;
+  margin-bottom:4px;
 }
 
 /* ── DELTA CHIP ── */
 .chips{
-  display:flex;gap:5px;flex-wrap:wrap;
-  margin-bottom:4px;
+  display:flex;gap:4px;flex-wrap:wrap;
+  margin-bottom:2px;
 }
 .chip{
-  display:inline-flex;align-items:center;gap:3px;
-  font-size:8px;font-weight:700;
-  padding:3px 7px;border-radius:99px;
+  display:inline-flex;align-items:center;gap:2px;
+  font-size: clamp(7.5px, 2.2vw, 8.5px);
+  font-weight:700;
+  padding:1.5px 5px;border-radius:99px;
   white-space:nowrap;
   font-family:var(--mono);
-  letter-spacing:-.01em;
 }
 .chip-up{background:var(--g-bg);color:var(--g);border:.5px solid var(--g-bdr);}
 .chip-dn{background:var(--r-bg);color:var(--r);border:.5px solid var(--r-bdr);}
 .chip-lbl{
-  font-size:7px;font-weight:600;
-  letter-spacing:.04em;text-transform:uppercase;
-  opacity:.7;
+  font-size:6.5px;font-weight:600;
+  letter-spacing:.02em;text-transform:uppercase;
+  opacity:.65;
 }
 
 #divider{
   height:.5px;
-  background:linear-gradient(90deg,rgba(15,23,42,.07) 0%,transparent 100%);
-  margin:10px 16px 8px;
+  background:linear-gradient(90deg,rgba(15,23,42,.08) 0%,transparent 100%);
+  margin:6px 8px 4px;
 }
 
 /* ════════════════════════════════
-   SVG SPARKLINE
+   SVG SPARKLINE — Highly Adaptable
 ════════════════════════════════ */
 #chart-wrap{
   position:relative;
-  padding:0 16px 12px;
+  padding:0 8px 6px;
   z-index:1;
 }
 
 #sparkline-svg{
   width:100%;
+  height: clamp(24px, 10vh, 36px); /* Fluid height based on device workspace */
   display:block;
   overflow:visible;
-  transition:height .35s var(--ease2);
 }
 
 .x-labels{
   display:flex;justify-content:space-between;
-  padding:4px 0 0;
+  padding:3px 0 0;
 }
 .x-labels span{
-  font-size:7px;font-weight:600;
+  font-size: 7px;font-weight:600;
   color:var(--t4);white-space:nowrap;
+  opacity:0.8;
 }
 
 /* ── LOADING ── */
 #loading{
   position:absolute;inset:0;z-index:10;
   display:flex;align-items:center;justify-content:center;
-  flex-direction:column;gap:8px;
-  background:rgba(255,255,255,.8);
-  border-radius:18px;
+  background:transparent;
 }
 .spinner{
-  width:20px;height:20px;
-  border:2px solid #f1f5f9;
+  width:14px;height:14px;
+  border:1.5px solid #f1f5f9;
   border-top-color:var(--b);
   border-radius:50%;animation:spin .7s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-txt{font-size:10px;color:var(--t4);font-weight:500;}
 
 /* ═══════ INTERACTIVE CHART TOOLTIP ═══════ */
 #chart-tooltip{
   position:absolute;
   pointer-events:none;
   z-index:10;
-  background:rgba(15,23,42,.94);
-  backdrop-filter:blur(8px);
+  background:rgba(15,23,42,.95);
+  backdrop-filter:blur(6px);
   border:1px solid rgba(255,255,255,.1);
-  border-radius:9px;
-  padding:7px 10px;
-  box-shadow:0 4px 16px rgba(0,0,0,.2);
+  border-radius:6px;
+  padding:5px 8px;
+  box-shadow:0 3px 12px rgba(0,0,0,.15);
   opacity:0;
-  transition:opacity .12s,transform .12s;
-  transform:translateY(4px);
+  transition:opacity .1s,transform .1s;
+  transform:translateY(3px);
   white-space:nowrap;
-  font-size:9px;
+  font-size:8.5px;
   color:#e2e8f0;
 }
 #chart-tooltip.vis{opacity:1;transform:translateY(0);}
-.tt-date{font-weight:700;color:#f1f5f9;margin-bottom:3px;font-size:9.5px;}
-.tt-row{display:flex;align-items:center;gap:6px;margin-top:2px;}
-.tt-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-.tt-lbl{color:#94a3b8;font-weight:500;min-width:40px;}
-.tt-val{font-family:var(--mono);font-weight:700;color:#f1f5f9;font-size:9.5px;}
+.tt-date{font-weight:700;color:#f1f5f9;margin-bottom:2px;font-size:9px;}
+.tt-row{display:flex;align-items:center;gap:4px;}
+.tt-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.tt-lbl{color:#94a3b8;font-weight:500;}
+.tt-val{font-family:var(--mono);font-weight:700;color:#f1f5f9;}
 
 .hit-zone{cursor:crosshair;opacity:0;}
-.hover-dot{pointer-events:none;opacity:0;transition:opacity .12s;}
+.hover-dot{pointer-events:none;opacity:0;transition:opacity .1s;}
 .hover-dot.vis{opacity:1;}
 
-/* ═══════ SELECTED STATE ═══════ */
+/* ═══════ SELECTED MARK STATE ═══════ */
 #card.selected{
-  border-color:rgba(37,99,235,.35);
-  box-shadow:
-    0 1px 3px rgba(15,23,42,.04),
-    0 8px 24px rgba(15,23,42,.07),
-    0 0 0 2px rgba(37,99,235,.15);
+  background:rgba(37,99,235,.04);
+  border-radius:8px;
+  outline: 1px dashed rgba(37,99,235,.25);
 }
 </style>
 </head>
@@ -198,7 +194,7 @@ html,body{
   <div id="divider"></div>
 
   <div id="chart-wrap">
-    <svg id="sparkline-svg" viewBox="0 0 200 50" preserveAspectRatio="none" aria-label="Trend sparkline"></svg>
+    <svg id="sparkline-svg" viewBox="0 0 200 35" preserveAspectRatio="none" aria-label="Trend sparkline"></svg>
     <div id="chart-tooltip"></div>
     <div class="x-labels">
       <span id="xl-first"></span>
@@ -206,10 +202,7 @@ html,body{
     </div>
   </div>
 
-  <div id="loading">
-    <div class="spinner"></div>
-    <div class="loading-txt">Loading…</div>
-  </div>
+  <div id="loading"><div class="spinner"></div></div>
 
 </div>
 </div>
@@ -242,13 +235,13 @@ function buildSparkline(values,labels,color){
   if(!values.length) return;
 
   var ns='http://www.w3.org/2000/svg';
-  var W=200, H=50;
+  var W=200, H=35; // Clean base baseline height aspect ratio
   var n=values.length;
 
   var min=Math.min.apply(null,values);
   var max=Math.max.apply(null,values);
   var range=max-min||1;
-  var pad=4;
+  var pad=3;
 
   function toY(v){return pad+(1-(v-min)/range)*(H-pad*2);}
 
@@ -277,44 +270,23 @@ function buildSparkline(values,labels,color){
   grad.setAttribute('x1','0');grad.setAttribute('y1','0');
   grad.setAttribute('x2','0');grad.setAttribute('y2','1');
   var st1=document.createElementNS(ns,'stop');
-  st1.setAttribute('offset','0%');st1.setAttribute('stop-color',color);st1.setAttribute('stop-opacity','0.2');
+  st1.setAttribute('offset','0%');st1.setAttribute('stop-color',color);st1.setAttribute('stop-opacity','0.12');
   var st2=document.createElementNS(ns,'stop');
   st2.setAttribute('offset','100%');st2.setAttribute('stop-color',color);st2.setAttribute('stop-opacity','0');
   grad.appendChild(st1);grad.appendChild(st2);
-
-  var filter=document.createElementNS(ns,'filter');
-  filter.setAttribute('id','glow');filter.setAttribute('x','-20%');
-  filter.setAttribute('y','-20%');filter.setAttribute('width','140%');filter.setAttribute('height','140%');
-  var blur=document.createElementNS(ns,'feGaussianBlur');
-  blur.setAttribute('in','SourceGraphic');blur.setAttribute('stdDeviation','2');
-  filter.appendChild(blur);
-  defs.appendChild(grad);defs.appendChild(filter);
+  defs.appendChild(grad);
   svg.appendChild(defs);
 
-  /* Fill under area */
-  var fillD=d+' L '+pts[pts.length-1].x.toFixed(1)+' '+H+' L '+pts[0].x.toFixed(1)+' '+H+' Z';
   var fillPath=document.createElementNS(ns,'path');
-  fillPath.setAttribute('d',fillD);
+  fillPath.setAttribute('d',d+' L '+pts[pts.length-1].x.toFixed(1)+' '+H+' L '+pts[0].x.toFixed(1)+' '+H+' Z');
   fillPath.setAttribute('fill','url(#spFill)');
   svg.appendChild(fillPath);
 
-  /* Glow line shadow */
-  var glowLine=document.createElementNS(ns,'path');
-  glowLine.setAttribute('d',d);
-  glowLine.setAttribute('fill','none');
-  glowLine.setAttribute('stroke',color);
-  glowLine.setAttribute('stroke-width','4');
-  glowLine.setAttribute('stroke-linecap','round');
-  glowLine.setAttribute('filter','url(#glow)');
-  glowLine.setAttribute('opacity','0.3');
-  svg.appendChild(glowLine);
-
-  /* Main line path */
   var line=document.createElementNS(ns,'path');
   line.setAttribute('d',d);
   line.setAttribute('fill','none');
   line.setAttribute('stroke',color);
-  line.setAttribute('stroke-width','2');
+  line.setAttribute('stroke-width','1.75'); // Marginally thinner path profile
   line.setAttribute('stroke-linecap','round');
   line.setAttribute('stroke-linejoin','round');
   var len=500;
@@ -322,35 +294,32 @@ function buildSparkline(values,labels,color){
   line.setAttribute('stroke-dashoffset',len);
   svg.appendChild(line);
   requestAnimationFrame(function(){
-    line.style.transition='stroke-dashoffset 1.2s cubic-bezier(.16,1,.3,1)';
+    line.style.transition='stroke-dashoffset 1s cubic-bezier(.16,1,.3,1)';
     line.setAttribute('stroke-dashoffset','0');
   });
 
-  /* Trend End Point Marker */
   var last=pts[pts.length-1];
   var dot=document.createElementNS(ns,'circle');
   dot.setAttribute('cx',last.x.toFixed(1));
   dot.setAttribute('cy',last.y.toFixed(1));
-  dot.setAttribute('r','3.5');
+  dot.setAttribute('r','2.5');
   dot.setAttribute('fill',color);
   dot.setAttribute('stroke','#fff');
-  dot.setAttribute('stroke-width','2');
+  dot.setAttribute('stroke-width','1.5');
   dot.style.opacity='0';
-  dot.style.transition='opacity .3s .8s';
+  dot.style.transition='opacity .3s .6s';
   svg.appendChild(dot);
   requestAnimationFrame(function(){dot.style.opacity='1';});
 
-  /* Mouse Tracker Dot */
   var hDot=document.createElementNS(ns,'circle');
   hDot.setAttribute('cx','0');hDot.setAttribute('cy','0');
-  hDot.setAttribute('r','4');
+  hDot.setAttribute('r','3');
   hDot.setAttribute('fill',color);
   hDot.setAttribute('stroke','#fff');
-  hDot.setAttribute('stroke-width','2');
+  hDot.setAttribute('stroke-width','1.5');
   hDot.setAttribute('class','hover-dot');
   svg.appendChild(hDot);
 
-  /* Crosshair lines */
   var vLine=document.createElementNS(ns,'line');
   vLine.setAttribute('x1','0');vLine.setAttribute('y1','0');
   vLine.setAttribute('x2','0');vLine.setAttribute('y2',H);
@@ -360,7 +329,6 @@ function buildSparkline(values,labels,color){
   vLine.setAttribute('class','hover-dot');
   svg.appendChild(vLine);
 
-  /* Hit boxes for tracking interactive mouse states */
   var stepW=n>1?W/(n-1):W;
   pts.forEach(function(p,i){
     var rect=document.createElementNS(ns,'rect');
@@ -384,17 +352,15 @@ function showTooltip(idx,px,py){
   var lbl=m.labels[idx]||'';
   var act=m.values[idx];
 
-  var html='<div class="tt-date">'+escH(lbl)+'</div>';
-  html+='<div class="tt-row"><div class="tt-dot" style="background:'+m.color+'"></div><span class="tt-lbl">Value</span><span class="tt-val">'+fmtN(act)+'</span></div>';
-  tt.innerHTML=html;
+  tt.innerHTML='<div class="tt-date">'+escH(lbl)+'</div><div class="tt-row"><span class="tt-val">'+fmtN(act)+'</span></div>';
   tt.classList.add('vis');
 
   var wrap=$('chart-wrap');
-  var wW=wrap.offsetWidth-32;
-  var ttW=tt.offsetWidth||100;
-  var left=Math.max(16,Math.min(px*(wW/200)+16-ttW/2, wW+16-ttW));
+  var wW=wrap.offsetWidth-16;
+  var ttW=tt.offsetWidth||70;
+  var left=Math.max(8,Math.min(px*(wW/200)+8-ttW/2, wW+8-ttW));
   tt.style.left=left+'px';
-  tt.style.bottom=(m.H-py+18)+'px';
+  tt.style.bottom=(m.H-py+12)+'px';
 
   var svg=$('sparkline-svg');
   svg.querySelectorAll('.hover-dot').forEach(function(d){d.classList.add('vis');});
@@ -411,20 +377,6 @@ function hideTooltip(){
 }
 
 function escH(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-/* ── RESPONSIVE RESPONDER ── */
-function applyScale(){
-  var w=$('card').offsetWidth||240;
-  var heroSz=Math.max(20,Math.min(34,Math.round(w*0.14)));
-  $('hero-val').style.fontSize=heroSz+'px';
-
-  var svgH=Math.max(35,Math.min(60,Math.round(w*0.22)));
-  $('sparkline-svg').setAttribute('viewBox','0 0 200 '+svgH);
-  $('sparkline-svg').style.height=svgH+'px';
-}
-if(window.ResizeObserver){
-  new ResizeObserver(function(){applyScale();}).observe($('card'));
-}
 
 /* ── DATETIME PARSERS ── */
 function parseDate(dv){
@@ -521,16 +473,17 @@ function render(rows,enc){
   var heroKey=findKey(enc.hero,    rk);
   var trdKey =findKey(enc.trend,   rk);
   var datKey =findKey(enc.date,    rk);
-  var used=[catKey,heroKey,trdKey,datKey].filter(Boolean);
+  var dltKey =findKey(enc.delta,   rk);
+  var used=[catKey,heroKey,trdKey,datKey,dltKey].filter(Boolean);
 
   if(!datKey) datKey=autoFind(rk,used,['date','month','day','year','period']);
+  if(!dltKey) dltKey=autoFind(rk,used,['delta','variance','pct','change']);
 
   var hdr=dvStr(rows[0],catKey);
   if(!hdr&&enc.hero) hdr=enc.hero.name.replace(/^(SUM|AVG|MAX|MIN)\((.+)\)$/i,'$2').trim();
   _categoryVal=hdr||'KPI';
   $('card-hdr').textContent=_categoryVal.toUpperCase();
 
-  /* Sum up hero metric if explicitly structured across multiple discrete data marks */
   var heroVal=null;
   if(heroKey){
     var s=0,c=0;
@@ -540,7 +493,6 @@ function render(rows,enc){
     if(c>0) heroVal=s;
   }
 
-  /* Extract linear trend series variables */
   var tKey=trdKey||heroKey;
   var pts=[];
   rows.forEach(function(row){
@@ -562,38 +514,33 @@ function render(rows,enc){
   var trendVals=pts.map(function(p){return p.val;});
   var labels=pts.map(function(p){return p.lbl;});
 
-  /* Fallback hero to last point of series if no standalone measure was mapped */
   if(heroVal===null && trendVals.length) heroVal=trendVals[trendVals.length-1];
   if(heroVal===null) return;
 
   $('hero-val').textContent=fmtN(heroVal);
 
-  /* Compute dynamic delta over timeline baseline variance (End vs Start) */
   var chipsEl=$('chips');
   chipsEl.innerHTML='';
   
-  var color='#16a34a'; // default up color
-  if(trendVals.length>1){
-    var firstVal=trendVals[0];
-    var lastVal=trendVals[trendVals.length-1];
-    
-    if(firstVal!==0 && firstVal!==null){
-      var delta=((lastVal-firstVal)/Math.abs(firstVal))*100;
-      var up=delta>=0;
-      color=up?'#16a34a':'#dc2626';
+  var deltaVal=dltKey ? dvNum(rows[0], dltKey) : null;
+  var color='#16a34a';
+  
+  if(deltaVal!==null){
+    var up=deltaVal>=0;
+    color=up?'#16a34a':'#dc2626';
 
-      var chip=document.createElement('span');
-      chip.className='chip '+(up?'chip-up':'chip-dn');
-      chip.innerHTML=(up?'▲':'▼')+' '+Math.abs(delta).toFixed(1)+'%'+' <span class="chip-lbl">over time</span>';
-      chipsEl.appendChild(chip);
-    }
-    
+    var chip=document.createElement('span');
+    chip.className='chip '+(up?'chip-up':'chip-dn');
+    var displayDelta=Math.abs(deltaVal)<1&&Math.abs(deltaVal)>0?deltaVal*100:deltaVal;
+    chip.innerHTML=(up?'▲':'▼')+' '+Math.abs(displayDelta).toFixed(1)+'%';
+    chipsEl.appendChild(chip);
+  }
+
+  if(trendVals.length>1){
     buildSparkline(trendVals,labels,color);
     $('xl-first').textContent=labels[0]||'';
     $('xl-last').textContent=labels[labels.length-1]||'';
   }
-
-  applyScale();
 }
 
 /* ── EVENT LISTENER STRATEGY ── */
